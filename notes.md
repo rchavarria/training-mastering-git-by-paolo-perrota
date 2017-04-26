@@ -70,7 +70,29 @@ Let's imagine you have a file in the working and in the index area (but not in t
 
 `git mv <file>` moves the file in the working area and copy the changes to the index. It's a shortcut for `mv file; git add <new file>; git add <old file>`. You have to *add* the new and the removed files for git to detect the file has been moved. `git mv` saves you some commands. `git mv` moves files in the working and in the index areas at the same time, but it doesn't change the repo
 
-## The four areas: git rest
+## The four areas: git reset
+
+To understand `reset`, you must understand the three areas and how branches work in git
+
+It's confusing most of the times because it does different things in different contexts
+
+Commands that move branches: `commit`, `merge`, `rebase`, `pull`,... But none of them are specialized in moving branches. They move them becuase they create new commits.
+
+`reset` is specialized in moving branches. That changes the repository area.
+
+But, depending on its options, it does different things on index and working area.
+
+`reset --hard` makes index and working look like the repo. It changes the 3 areas to be the same.
+
+`reset --mixed` changes index, but not working area.
+
+`reset --soft` does not change any area, just move the branch.
+
+With `git reset --hard <commit>` we can undo all our changes back in time until that commit
+
+For example. Let's imagine I have changes in working area and they are staged in the index, but not committed to the repo. With `git reset [--mixed] HEAD <file>`, git moves the current branch to the commit where `HEAD` points, it is, the current commit. With the optional option `--mixed`, git changes the index area, but not the working area. So index and repo are the same, and working is different. It's like we unstaged our changes, so we have to add and commit if we want them to be in the repo.
+
+If you want to undo completely your stated changes, `get reset --hard HEAD`. It doesn't move the current branch (because `HEAD` points already there). But it changes index and working. This is the easiest way to **destroy** things in git.
 
 ## The four areas: more tools
 
