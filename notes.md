@@ -96,6 +96,30 @@ If you want to undo completely your stated changes, `get reset --hard HEAD`. It 
 
 ## The four areas: more tools
 
+Now, we'll learn about the *stash* area.
+
+It doesn't change, unless you explicitly say it will change.
+
+Stash can be used to *hide* temporal changes, to go back to them soon.
+
+`git stash --include-untracked` moves changes from working and index areas to stash area
+
+`git stash list` shows all your changes are on the stash areas
+
+`git stash apply` get changes from the stash and moves them to working area and index, depending on where they were before stashing.
+
+`git stash clear` cleans the stash area.
+
+**Solving conflicts**
+
+If after a merge, we have conflicts, git will modify the conflicted file. We need to edit it manually to fix the conflict. Then, to mark the file as resolved, we `git add` the file. That tells git that the file is ready to be committed.
+
+**Working with paths**
+
+To revert changes in just one file to the index area, we can do: `git reset [--mixed] HEAD <file>`.
+
+So, to revert changes of just one file to the working area, we could thing we shoudl do: `git reset --hard HEAD <file>`. But we get an error `Can not hard reset with paths`. Instead, we shoudl do a checkout: `git checkout HEAD <file>`
+
 ## History: exploring the past
 
 ## History: fixing mistakes
