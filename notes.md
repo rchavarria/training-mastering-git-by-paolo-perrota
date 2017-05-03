@@ -122,6 +122,24 @@ So, to revert changes of just one file to the working area, we could thing we sh
 
 ## History: exploring the past
 
+`git log --graph --decorate --oneline`: shows the history log, graphically, decorated and each commit is just one line
+
+`git show` shows information about a single commit. How can we refer to that commit?
+
+- `git show <commit hash>`
+- `git show HEAD`
+- `git show <branch name>`
+- `git show HEAD~2`: two commits before `HEAD`
+- `git show HEAD^`: parent commit
+
+`git blame <file>` shows who modified each line of the file
+
+`git diff <commit 1> <commit 2>` shows the difference between two commits
+
+`git log --grep <topic>`: filter commits shown
+
+`git log <branch 1>..<branch 2>` shows all commits in `branch 2` that are not present in `branch 1`
+
 ## History: fixing mistakes
 
 ## Finding your workflow
