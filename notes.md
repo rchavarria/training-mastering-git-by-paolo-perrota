@@ -142,5 +142,34 @@ So, to revert changes of just one file to the working area, we could thing we sh
 
 ## History: fixing mistakes
 
+The golden rule: **Never rebase shared commits**, because `rebase` (and most commands from this module) changes the history, and it will confuse other users
+
+#### Fixing the latest commit
+
+`git commit --amend`. It will join changes in the latest commit with changes in the index area. It's like a mini-rebase operation.
+
+#### Interactive rebasing
+
+With `git rebase --interactive` we have a powerful history edition tool. You can pick, reword, ammend, edit, remove,... previous commit. But be careful, do not change history of shared commits.
+
+#### The reflog
+
+Every time a reference moves in the repository, git logs that movement. A reference can be `HEAD`, a branch, a tag,...
+
+You can see the log with `git reflog <reference>` (`git reflog HEAD`)
+
+#### Reverting commits
+
+Let's imagine we have some changes in a commit, way down in the history, and it's shared. How we revert those changes? We have several options:
+
+1. Use an interactive rebase, and pick all commits but the one we want to remove. But that will change git history, and commits are already shared, so it's not a good option
+2. Revert those changes manually, and create a new commit
+
+Or, we have `git revert <commit hash>`. That will create a new commit, with exactly the opposite changes we had in `commit hash`. 
+
+And, it's more or less safe, because it doesn't modify existing commits.
+
+But be careful. Merge commits are tricky. So, the general rule is **not revert merge commits**.
+
 ## Finding your workflow
 
