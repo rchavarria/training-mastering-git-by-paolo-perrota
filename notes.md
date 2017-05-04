@@ -173,3 +173,85 @@ But be careful. Merge commits are tricky. So, the general rule is **not revert m
 
 ## Finding your workflow
 
+There are many many ways of working with git within a team. So, you have to make some decissions:
+
+1. Distribution model
+2. Branching model
+3. Constraints: rebase or merge, push unstable code,...
+
+### Distribution model
+
+This answer questions such as: how many repos do you have? who can access what repo?...
+
+The simplest (but not easiest) model is the **Peer to peer model**, where each developer has a copy of the complete repo. Each dev sees other devs repos as remotes. Each dev pull changes from each other.
+
+In that model, which repo is the reference? who owns the repo where releases are created? Then, a new kind of repo appears, the *blessed* repo. It's in a machine where nobody works. It's a server. And everybody pushes and pulls from that repo. It's kind of central repo. And most people call it *origin*. That *degenerates* in a *Centralized model*.
+
+**Pull request model**
+
+In other models, not all devs can write (push) changes to the blessed repo. There are maintainers and contributors. Contributors can only pull from the blessed repo. Maintainers can pull and push to that repo.
+
+How do contributors contribute? They send a message to a maintainer, they create a *pull request*. GitHub makes this very easy, but it doesn't have to be integrated with the central server.
+
+This is the most common model used in Open Source projects
+
+**Dictator and Lieutenants model**
+
+It's a more complex model than the PR model. In this one, there are one main project, with a maintainer, and several subprojects. Each project is a PR model (maintainer + contributor). Then, each subproject maintainer works as a main project contributor.
+
+Linux uses this model. Subproject maintainers are called Lieutenants. Main project maintainer is called *Benevolent dictator*.
+
+### Branching model
+
+You must differenciate between *stable* and *unstable* branches.
+
+Almost all projects have a branche where everybody integrate their changes. The more stable this branch is, the better.
+
+Another branch to look for is: what branch should we use to release a version? People usually call it `release`. It usually is even more stable than the integration (or `master`) branch.
+
+A very common model is the *Feature branch model*. In this model, a feature is developed in unstable branches. When feature is done, it's integrated (merged) into a more stable branch.
+
+There are another type of branches, *hotfix* branches. When you need a change in two parallel branches, you can do them in one branch and cherry-pick to the second branch. Or, you can develop the changes in a third branch (the `hotfix`) and then merge the hotfix in each parallel branches, doing two merges.
+
+### Constraints
+
+Examples:
+
+1. `rebase`, don't `merge`. Or just the opposite: `merge`, don't `rebase`
+2. Only developer *X* can do *Y* on branch *Z*
+3. Don't push to a red build (in a project using continuous integration)
+4. Squash a feature to a single commiti before you merge it to `master`
+
+### We need to talk about GitFlow
+
+### Growing a workflow
+
+Don't design a workflow on your own. It'll be very difficult to imagine all possible situations.
+
+Instead, **grow** your workflow.
+
+Basic workflow to start with:
+
+1. Distribution model
+  
+  - Centralized
+
+2. Branching model
+
+  - One integration branch (`master`)
+  - One feature branch per feature
+
+3. Constraints
+
+  - Keep `master` stable, fix it ASAP
+  - Integrate feature branches every few days
+  - Use `merge` over `rebase` by default
+
+> Simple, clear purpose and principles give rise to complex and intelligent behavior. Complex rules and regulations give rise to simple and stupid behavior ~ Dee Hock, Visa company
+
+### Thinking in Git
+
+
+
+
+
